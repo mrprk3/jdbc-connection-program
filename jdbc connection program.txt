@@ -1,0 +1,51 @@
+package com.atmprk;
+
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class StudentDao {
+	private String driver="com.mysql.jdbc.Driver";
+	private String url="jdbc:mysql://127.0.0.1:3306/Assignment";
+	private String userName="root";
+	private String password="mrprk";
+	
+	public void selectRows() throws ClassNotFoundException, SQLException {
+		//load driver
+		Class.forName(driver);
+		
+		//get connection
+		DriverManager.getConnection(url, userName, password);
+		
+		//execute query
+		 Statement stmt =con.createStatement();
+		 ResultSet rs= stmt.executeQuery("SELECT * FROM Assignment.student;");
+		 while(rs.next()) {
+			int studentId= rs.getInt(1);
+			String studentName=rs.getString(2);
+			double hostelFees=rs.getDouble(3);
+			String foodType=rs.getString(4);
+			System.out.println(studentId +" "+studentName+ " "+ hostelFees+" "+foodType);
+		 }
+	}
+
+}
+
+
+
+
+
+package com.atmprk;
+
+import java.sql.SQLException;
+
+public class Test {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		StudentDao std = new StudentDao();
+		std.selectRows();
+
+	}
+
+}
